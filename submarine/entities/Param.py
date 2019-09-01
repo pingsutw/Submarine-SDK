@@ -6,9 +6,10 @@ class Param(_SubmarineObject):
     Parameter object.
     """
 
-    def __init__(self, key, value):
+    def __init__(self, key, value, worker_index):
         self._key = key
         self._value = value
+        self._worker_index = worker_index
 
     @property
     def key(self):
@@ -19,3 +20,8 @@ class Param(_SubmarineObject):
     def value(self):
         """String value of the parameter."""
         return self._value
+
+    @property
+    def worker_index(self):
+        """String value of the parameter."""
+        return self.worker_index
