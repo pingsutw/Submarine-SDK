@@ -24,4 +24,4 @@ class Param(_SubmarineObject):
     @property
     def worker_index(self):
         """String value of the parameter."""
-        return self.worker_index
+        return self._worker_index

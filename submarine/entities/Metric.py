@@ -25,8 +25,8 @@ class Metric(_SubmarineObject):
 
     @property
     def worker_index(self):
-        """Float value of the metric."""
-        return self.worker_index
+        """string value of the metric."""
+        return self._worker_index
 
     @property
     def timestamp(self):
