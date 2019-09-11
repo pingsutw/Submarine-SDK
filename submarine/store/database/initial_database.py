@@ -1,7 +1,7 @@
 import time
 from sqlalchemy import (
-    Column, String, Float, ForeignKey,
-    BigInteger, PrimaryKeyConstraint)
+    Column, String, Float,
+    BigInteger, PrimaryKeyConstraint, Boolean)
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -12,6 +12,7 @@ RunStatusTypes = [
     "FINISHED",
     "RUNNING",
 ]
+
 
 class SqlMetric(Base):
     __tablename__ = 'metrics'
@@ -24,7 +25,7 @@ class SqlMetric(Base):
     """
     Metric value: `Float`. Defined as *Non-null* in schema.
     """
-    worker_index = Column(String(250), nullable=False)
+    worker_index = Column(String(250))
     """
     Param worker_index: `String` (limit 250 characters). Defined as *Non-null* in schema.
     """
@@ -33,14 +34,22 @@ class SqlMetric(Base):
     Timestamp recorded for this metric entry: `BigInteger`. Part of *Primary Key* for
                                                ``metrics`` table.
     """
-    run_uuid = Column(String(32), ForeignKey('runs.run_uuid'))
+    step = Column(BigInteger, default=0, nullable=False)
+    """
+    Step recorded for this metric entry: `BigInteger`.
+    """
+    is_nan = Column(Boolean, nullable=False, default=False)
+    """
+    True if the value is in fact NaN.
+    """
+    run_uuid = Column(String(32))
     """
     Run UUID to which this metric belongs to: Part of *Primary Key* for ``metrics`` table.
-                                              *Foreign Key* into ``runs`` table.
     """
 
     __table_args__ = (
-        PrimaryKeyConstraint('key', 'timestamp',  'worker_index', 'run_uuid', name='metric_pk'),
+        PrimaryKeyConstraint('key', 'timestamp', 'step', 'run_uuid', 'value', "is_nan",
+                             name='metric_pk'),
     )
 
     def __repr__(self):
@@ -62,14 +71,14 @@ class SqlParam(Base):
     """
     Param worker_index: `String` (limit 250 characters). Defined as *Non-null* in schema.
     """
-    run_uuid = Column(String(32), ForeignKey('runs.run_uuid'))
+    run_uuid = Column(String(32))
     """
     Run UUID to which this metric belongs to: Part of *Primary Key* for ``params`` table.
                                               *Foreign Key* into ``runs`` table.
     """
 
     __table_args__ = (
-        PrimaryKeyConstraint('key', 'worker_index', 'run_uuid', name='param_pk'),
+        PrimaryKeyConstraint('key', 'run_uuid', name='param_pk'),
     )
 
     def __repr__(self):

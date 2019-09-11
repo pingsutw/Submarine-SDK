@@ -1,13 +1,14 @@
 import time
 import sqlalchemy as sa
 from sqlalchemy import (
-    Column, String, ForeignKey, BigInteger,
+    Column, String, BigInteger,
     PrimaryKeyConstraint, Boolean)
 from sqlalchemy.ext.declarative import declarative_base
 from submarine.entities import (Metric, Param)
 
 
 Base = declarative_base()
+
 
 class SqlMetric(Base):
     __tablename__ = 'metrics'
@@ -20,7 +21,7 @@ class SqlMetric(Base):
     """
     Metric value: `Float`. Defined as *Non-null* in schema.
     """
-    worker_index = Column(String(250), nullable=False)
+    worker_index = Column(String(250))
     """
     Metric worker_index: `String` (limit 250 characters). Part of *Primary Key* for ``metrics`` table.
     """
@@ -37,7 +38,7 @@ class SqlMetric(Base):
     """
     True if the value is in fact NaN.
     """
-    run_uuid = Column(String(32), ForeignKey('runs.run_uuid'))
+    run_uuid = Column(String(32))
     """
     Run UUID to which this metric belongs to: Part of *Primary Key* for ``metrics`` table.
                                               *Foreign Key* into ``runs`` table.
@@ -77,12 +78,11 @@ class SqlParam(Base):
     """
     worker_index = Column(String(250), nullable=False)
     """
-    Metric worker_index: `String` (limit 250 characters). Part of *Primary Key* for ``metrics`` table.
+    Param worker_index: `String` (limit 250 characters). Part of *Primary Key* for ``metrics`` table.
     """
-    run_uuid = Column(String(32), ForeignKey('runs.run_uuid'))
+    run_uuid = Column(String(32))
     """
     Run UUID to which this metric belongs to: Part of *Primary Key* for ``params`` table.
-                                              *Foreign Key* into ``runs`` table.
     """
 
     __table_args__ = (
@@ -92,10 +92,10 @@ class SqlParam(Base):
     def __repr__(self):
         return '<SqlParam({}, {})>'.format(self.key, self.value)
 
-    def to_mlflow_entity(self):
+    def to_submarine_entity(self):
         """
-        Convert DB model to corresponding MLflow entity.
-        :return: :py:class:`mlflow.entities.Param`.
+        Convert DB model to corresponding submarine entity.
+        :return: :py:class:`submarine.entities.Param`.
         """
         return Param(
             key=self.key,
