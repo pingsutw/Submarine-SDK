@@ -45,4 +45,5 @@ def log_metric(key, value, worker_index, step=None):
     :param step: Metric step (int). Defaults to zero if unspecified.
     """
     run_id = random_string()
-    SubmarineClient().log_metric(run_id, key, value, worker_index, int(time.time() * 1000), step or 0)
+    SubmarineClient().log_metric(
+        run_id, key, value, worker_index, int(time.time() * 1000), step or 0)

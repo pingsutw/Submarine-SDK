@@ -23,12 +23,13 @@ class SqlMetric(Base):
     """
     worker_index = Column(String(250))
     """
-    Metric worker_index: `String` (limit 250 characters). Part of *Primary Key* for ``metrics`` table.
+    Metric worker_index: `String` (limit 250 characters). Part of *Primary Key* for
+    ``metrics`` table.
     """
     timestamp = Column(BigInteger, default=lambda: int(time.time()))
     """
     Timestamp recorded for this metric entry: `BigInteger`. Part of *Primary Key* for
-                                               ``metrics`` table.
+    ``metrics`` table.
     """
     step = Column(BigInteger, default=0, nullable=False)
     """
@@ -41,7 +42,6 @@ class SqlMetric(Base):
     run_uuid = Column(String(32))
     """
     Run UUID to which this metric belongs to: Part of *Primary Key* for ``metrics`` table.
-                                              *Foreign Key* into ``runs`` table.
     """
 
     __table_args__ = (
@@ -78,7 +78,8 @@ class SqlParam(Base):
     """
     worker_index = Column(String(250), nullable=False)
     """
-    Param worker_index: `String` (limit 250 characters). Part of *Primary Key* for ``metrics`` table.
+    Param worker_index: `String` (limit 250 characters). Part of *Primary Key* for
+    ``metrics`` table.
     """
     run_uuid = Column(String(32))
     """

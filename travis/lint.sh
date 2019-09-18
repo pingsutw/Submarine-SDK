@@ -18,6 +18,7 @@ set -e
 
 FWDIR="$(cd "`dirname $0`"; pwd)"
 cd "$FWDIR"
+cd ..
 
 pycodestyle --max-line-length=100  -- submarine tests
-pylint --msg-template="{path} ({line},{column}): [{msg_id} {symbol}] {msg}" --rcfile="$FWDIR/pylintrc" -- mlflow tests
+pylint --msg-template="{path} ({line},{column}): [{msg_id} {symbol}] {msg}" --rcfile=pylintrc -- submarine tests

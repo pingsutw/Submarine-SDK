@@ -23,7 +23,8 @@ _UNSUPPORTED_DB_TYPE_MSG = "Supported database engines are {%s}" % ', '.join(DAT
 def _validate_param_name(name):
     """Check that `name` is a valid parameter name and raise an exception if it isn't."""
     if not _VALID_PARAM_AND_METRIC_NAMES.match(name):
-        raise SubmarineException("Invalid parameter name: '%s'. %s" % (name, _BAD_CHARACTERS_MESSAGE),)
+        raise SubmarineException(
+            "Invalid parameter name: '%s'. %s" % (name, _BAD_CHARACTERS_MESSAGE),)
 
 
 def _validate_metric_name(name):

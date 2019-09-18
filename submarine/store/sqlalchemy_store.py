@@ -22,7 +22,8 @@ class SqlAlchemyStore(AbstractStore):
     the database URI is expected in the format
     ``<dialect>+<driver>://<username>:<password>@<host>:<port>/<database>``. If you do not
     specify a driver, SQLAlchemy uses a dialect's default driver.
-    This store interacts with SQL store using SQLAlchemy abstractions defined for Submarine entities.
+    This store interacts with SQL store using SQLAlchemy abstractions defined for
+    Submarine entities.
     :py:class:`submarine.store.database.models.SqlMetric`, and
     :py:class:`submarine.store.database.models.SqlParam`.
     """

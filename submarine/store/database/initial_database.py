@@ -83,9 +83,3 @@ class SqlParam(Base):
 
     def __repr__(self):
         return '<SqlParam({}, {})>'.format(self.key, self.value)
-
-
-
-
-
-

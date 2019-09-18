@@ -1,3 +1,18 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
 [MASTER]
 
 # A comma-separated list of package or module names from where C extensions may
@@ -74,6 +89,7 @@ disable=missing-docstring,
         raw-checker-failed,
         bad-inline-option,
         locally-disabled,
+        locally-enabled,
         file-ignored,
         suppressed-message,
         useless-suppression,
@@ -134,12 +150,25 @@ disable=missing-docstring,
         dict-items-not-iterating,
         dict-keys-not-iterating,
         dict-values-not-iterating,
-        deprecated-operator-function,
-        deprecated-urllib-function,
-        xreadlines-attribute,
-        deprecated-sys-function,
-        exception-escape,
-        comprehension-escape
+        # For Submarine, ignore "convention" and "refactor" message types
+        # (see all message types at https://docs.pylint.org/en/1.6.0/tutorial.html#getting-started)
+        C,
+        R,
+        # Additional style-check messages disabled for Submarine
+        invalid-name,
+        no-else-return,
+        protected-access,
+        too-many-instance-attributes,
+        len-as-condition,
+        too-many-locals,
+        too-many-arguments,
+        too-many-return-statements,
+        fixme,
+        global-statement,
+        no-member, # disabled due to https://github.com/PyCQA/pylint/issues/1864
+        # redefined-outer-name disabled to avoid linting errors when using pytest fixtures
+        # (see https://stackoverflow.com/questions/46089480/pytest-fixtures-redefining-name-from-outer-scope-pylint)
+        redefined-outer-name,
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -182,7 +211,7 @@ max-nested-blocks=5
 # inconsistent-return-statements if a never returning function is called then
 # it will be considered as an explicit return statement and no message will be
 # printed.
-never-returning-functions=sys.exit
+never-returning-functions=optparse.Values,sys.exit
 
 
 [LOGGING]
@@ -452,7 +481,7 @@ ignored-classes=optparse.Values,thread._local,_thread._local
 # (useful for modules/projects where namespaces are manipulated during runtime
 # and thus existing member attributes cannot be deduced by static analysis. It
 # supports qualified module names, as well as Unix pattern matching.
-ignored-modules=
+ignored-modules=distutils,tensorflow.keras
 
 # Show a hint with possible names when a member name was not found. The aspect
 # of finding the hint is based on edit distance.
