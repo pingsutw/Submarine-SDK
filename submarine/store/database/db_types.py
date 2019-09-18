@@ -1,5 +1,5 @@
 """
-Set of SQLAlchemy database schemas supported in MLflow for tracking server backends.
+Set of SQLAlchemy database schemas supported in Submarine for tracking server backends.
 """
 
 POSTGRES = 'postgresql'
