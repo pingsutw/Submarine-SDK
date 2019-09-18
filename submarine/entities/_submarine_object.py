@@ -1,8 +1,7 @@
-from abc import abstractmethod
 import pprint
 
 
-class _SubmarineObject(object):
+class _SubmarineObject:
     def __iter__(self):
         # Iterate through list of properties and yield as key -> value
         for prop in self._properties():
@@ -29,7 +28,7 @@ def get_classname(obj):
     return type(obj).__name__
 
 
-class _SubmarineObjectPrinter(object):
+class _SubmarineObjectPrinter:
 
     def __init__(self):
         super(_SubmarineObjectPrinter, self).__init__()
