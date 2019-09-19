@@ -12,7 +12,7 @@
   limitations under the License. See accompanying LICENSE file.
 -->
 
-# What is Hadoop Submarine?
+# What is Hadoop Submarine?  [![Build Status](https://travis-ci.org/pingsutw/Submarine-SDK.svg?branch=master)](https://travis-ci.org/pingsutw/Submarine-SDK)
 
 Submarine is a new subproject of Apache Hadoop.
 
