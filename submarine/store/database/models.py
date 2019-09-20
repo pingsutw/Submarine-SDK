@@ -1,3 +1,18 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import time
 import sqlalchemy as sa
 from sqlalchemy import (
@@ -39,13 +54,13 @@ class SqlMetric(Base):
     """
     True if the value is in fact NaN.
     """
-    run_uuid = Column(String(32))
+    job_name = Column(String(32))
     """
-    Run UUID to which this metric belongs to: Part of *Primary Key* for ``metrics`` table.
+    JOB NAME to which this metric belongs to: Part of *Primary Key* for ``metrics`` table.
     """
 
     __table_args__ = (
-        PrimaryKeyConstraint('key', 'timestamp', 'step', 'run_uuid', 'value', "is_nan",
+        PrimaryKeyConstraint('key', 'timestamp', 'step', 'job_name', 'value', "is_nan",
                              name='metric_pk'),
     )
 
@@ -81,13 +96,13 @@ class SqlParam(Base):
     Param worker_index: `String` (limit 250 characters). Part of *Primary Key* for
     ``metrics`` table.
     """
-    run_uuid = Column(String(32))
+    job_name = Column(String(32))
     """
-    Run UUID to which this metric belongs to: Part of *Primary Key* for ``params`` table.
+    JOB NAME to which this parameter belongs to: Part of *Primary Key* for ``params`` table.
     """
 
     __table_args__ = (
-        PrimaryKeyConstraint('key', 'run_uuid', name='param_pk'),
+        PrimaryKeyConstraint('key', 'job_name', name='param_pk'),
     )
 
     def __repr__(self):

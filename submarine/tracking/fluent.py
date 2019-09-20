@@ -1,14 +1,31 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Internal module implementing the fluent API, allowing management of an active
 Submarine run. This module is exposed to users at the top-level :py:mod:`submarine` module.
 """
 from __future__ import print_function
 from submarine.tracking.client import SubmarineClient
+from submarine.tracking.utils import get_job_name
 
 import time
 import logging
 import random
 import string
+
 
 _RUN_ID_ENV_VAR = "SUBMARINE_RUN_ID"
 _active_run_stack = []
@@ -30,8 +47,8 @@ def log_param(key, value, worker_index):
     :param value: Parameter value (string, but will be string-ified if not)
     :param worker_index
     """
-    run_id = random_string()
-    SubmarineClient().log_param(run_id, key, value, worker_index)
+    job_name = get_job_name()
+    SubmarineClient().log_param(job_name, key, value, worker_index)
 
 
 def log_metric(key, value, worker_index, step=None):
@@ -44,6 +61,6 @@ def log_metric(key, value, worker_index, step=None):
     :param worker_index: Metric worker_index (string).
     :param step: Metric step (int). Defaults to zero if unspecified.
     """
-    run_id = random_string()
+    job_name = get_job_name()
     SubmarineClient().log_metric(
-        run_id, key, value, worker_index, int(time.time() * 1000), step or 0)
+        job_name, key, value, worker_index, int(time.time() * 1000), step or 0)
