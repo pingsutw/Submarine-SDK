@@ -12,3 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from submarine.tracking.client import SubmarineClient
+from submarine.tracking.utils import set_tracking_uri, get_tracking_uri, _TRACKING_URI_ENV_VAR, \
+    _JOB_NAME_ENV_VAR
+
+__all__ = [
+    "SubmarineClient",
+    "get_tracking_uri",
+    "set_tracking_uri",
+    "_TRACKING_URI_ENV_VAR",
+    "_JOB_NAME_ENV_VAR",
+]
